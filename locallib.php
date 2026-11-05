@@ -37,7 +37,7 @@ function tool_passwordvalidator_password_validate($password, $user) {
     // External authentication providers do not supply a local password to Moodle.
     // Do not validate that empty value during the post-authentication login check.
     if (!empty($user->id) && isset($user->password)
-            && !password_is_usable($user->password)
+            && !is_password_usable($user->password)
             && tool_passwordvalidator_is_login_check()) {
         return '';
     }
