@@ -130,16 +130,17 @@ To test passwords against other user accounts, enter the username or email addre
 
 | Moodle version    | Branch            | PHP  | MySQL   | PostgreSQL  |
 |-------------------|-------------------|------|---------|-------------|
-| Moodle 3.8+       | MOODLE_401_STABLE | 7.2+ | 5.7+    | 12+         |
+| Moodle 3.8-4.5    | MOODLE_401_STABLE | 7.2+ | 5.7+    | 12+         |
+| Moodle 5.0-5.1    | MOODLE_500/501_STABLE | 8.1+ | See Moodle requirements | See Moodle requirements |
 
 Installation
 ------------
 
 Depending on version you may need to backport certain API's:
 
-### Moodle 3.8+
+### Moodle 3.8-5.1
 
-This plugin will fully work with any version of moodle from 3.8 onwards.
+This fork targets Moodle versions from 3.8 through 5.1. Moodle 5.0 and 5.1 are tested by CI.
 
 ### Before Moodle 3.8
 
@@ -169,9 +170,9 @@ https://tracker.moodle.org/browse/MDL-61694
 
 https://github.com/moodle/moodle/commit/99405aa7e2 
 
-### PHP7.0+
+### PHP 7.2+
 
-Note: Only PHP 7.0 or greater is supported by this plugin.
+Note: Moodle 5.0 and 5.1 require PHP 8.1 or greater. Older supported Moodle versions have lower PHP requirements.
 
 To install the plugin simply drop it into the ```/path/to/moodle/admin/tool/passwordvalidator``` directory. When moodle is accessed it will prompt for installation of the plugin. Press upgrade database now, and the plugin will be installed.
 
@@ -223,4 +224,3 @@ This plugin was developed by Catalyst IT Australia:
 https://www.catalyst-au.net/
 
 <a href="https://www.catalyst-au.net/"><img alt="Catalyst IT" src="https://cdn.rawgit.com/CatalystIT-AU/moodle-auth_saml2/master/pix/catalyst-logo.svg" width="400"></a>
-

@@ -11,3 +11,4 @@ jobs:
     with:
       disable_phpdoc: true
       release_branches: 'MOODLE_401_STABLE'
+      moodle_branches: 'MOODLE_500_STABLE MOODLE_501_STABLE'

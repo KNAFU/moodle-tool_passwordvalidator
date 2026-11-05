@@ -388,6 +388,19 @@ final class locallib_test extends \advanced_testcase {
         $this->assertEquals($goodresponse, tool_passwordvalidator_password_validate($admindatapassword, $newuser));
     }
 
+    public function test_login_check_detection(): void {
+        $stack = [
+            [
+                'function' => 'check_password_policy',
+            ],
+            [
+                'function' => 'authenticate_user_login',
+            ],
+        ];
+
+        $this->assertTrue(tool_passwordvalidator_is_login_check($stack));
+    }
+
     // This test ensures that the end to end flow of check_password_policy is working.
     public function test_password_change_api(): void {
         $this->resetAfterTest(true);

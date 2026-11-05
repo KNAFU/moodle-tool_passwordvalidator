@@ -34,6 +34,14 @@ defined('MOODLE_INTERNAL') || die;
  *
  */
 function tool_passwordvalidator_password_validate($password, $user) {
+    // External authentication providers do not supply a local password to Moodle.
+    // Do not validate that empty value during the post-authentication login check.
+    if (!empty($user->id) && isset($user->password)
+            && !password_is_usable($user->password)
+            && tool_passwordvalidator_is_login_check()) {
+        return '';
+    }
+
     // Only execute checks if user isn't admin or is test mode.
     // Here so admin can force passwords.
     $errs = '';
@@ -97,6 +105,31 @@ function tool_passwordvalidator_password_validate($password, $user) {
     }
 
     return $errs;
+}
+
+/**
+ * Detects the password policy check performed after a successful login.
+ *
+ * @param array|null $stack Optional call stack, used by unit tests.
+ * @return bool Whether the current call is the post-authentication login check.
+ */
+function tool_passwordvalidator_is_login_check($stack = null) {
+    if ($stack === null) {
+        if (PHPUNIT_TEST) {
+            return false;
+        }
+
+        $stack = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    }
+
+    foreach ($stack as $level => $data) {
+        if (($data['function'] ?? '') === 'authenticate_user_login') {
+            return isset($stack[$level - 1]) &&
+                $stack[$level - 1]['function'] === 'check_password_policy';
+        }
+    }
+
+    return false;
 }
 
 /**
